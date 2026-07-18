@@ -263,12 +263,14 @@ Requirements: Python ≥ 3.10, numpy 2.2, scipy 1.15, pandas 2.3, streamlit 1.57
 
 ---
 
-## Feedback
+## Contact
 
-Found a bug, got unexpected results, or have a feature request?
+**Florent Ouabo Kamkumo, PhD**
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/florent-ouabo-kamkumo-phd-ba39472b8/)
 
-- [Open a GitHub Issue](https://github.com/Ouabo/episurveil/issues/new?labels=feedback&title=[Feedback]) — pre-filled template
-- Or use the **💬 Feedback** strip at the bottom of the Model explorer tab in the dashboard
+For research collaborations, questions, or feedback:
+- **LinkedIn** — preferred for research inquiries and collaborations
+- [Open a GitHub Issue](https://github.com/Ouabo/episurveil/issues/new?labels=feedback&title=[Feedback]) — for bugs and feature requests
 
 Feedback on the following is especially welcome:
 - Filter collapse edge cases (new disease / unusual data)

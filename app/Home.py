@@ -1,9 +1,8 @@
-"""EpiSurveil Control Platform -- interactive dashboard.
+"""EpiSurveil Control Platform -- interactive epidemic surveillance dashboard.
 
-Displays SVEAIHCRD bootstrap-particle-filter results for German COVID-19
-surveillance (March 2020 - March 2023).
-
-Tabs: Filter output | Compartments | Dynamic parameters | Metrics | Fixed parameters | ESS
+Real-time Bootstrap Particle Filter for any respiratory disease.
+Validated reference run: SVEAIHCRD · Germany COVID-19 (March 2020 – October 2024).
+Live data tabs: ECDC influenza/ILI + disease.sh COVID-19, up to 10 countries.
 """
 from __future__ import annotations
 import json
@@ -70,7 +69,7 @@ CI_OPACITY = 0.15
 OBS_OPACITY = 0.50
 LINE_W = 1.6
 
-st.set_page_config(page_title="EpiSurveil - SVEAIHCRD Germany",
+st.set_page_config(page_title="EpiSurveil — Epidemic Surveillance Platform",
                    layout="wide", page_icon="\U0001f9a0")
 
 @st.cache_data(ttl=30)
@@ -90,7 +89,21 @@ df_full, metrics = load_data()
 # Sidebar — date-range selector
 # ---------------------------------------------------------------------------
 st.sidebar.title("EpiSurveil")
-st.sidebar.markdown("**SVEAIHCRD · Germany COVID-19**")
+st.sidebar.markdown(
+    "**EpiSurveil** · Bootstrap Particle Filter  \n"
+    "Live data: ECDC · disease.sh  \n"
+    "Validated: SVEAIHCRD · Germany COVID-19"
+)
+st.sidebar.markdown("---")
+st.sidebar.markdown(
+    "**Author**  \n"
+    "Florent Ouabo Kamkumo, PhD  \n"
+    "[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2?logo=linkedin&logoColor=white&style=flat-square)]"
+    "(https://www.linkedin.com/in/florent-ouabo-kamkumo-phd-ba39472b8/)  \n"
+    "[![GitHub](https://img.shields.io/badge/GitHub-Ouabo-181717?logo=github&style=flat-square)]"
+    "(https://github.com/Ouabo/episurveil)  \n"
+    "[🐛 Report an issue](https://github.com/Ouabo/episurveil/issues/new)"
+)
 st.sidebar.markdown("---")
 st.sidebar.markdown("### Date range")
 
@@ -148,9 +161,14 @@ st.sidebar.caption(
 # Header KPIs
 # ---------------------------------------------------------------------------
 st.title("EpiSurveil Control Platform")
-st.caption(
-    "Bootstrap Particle Filter · SVEAIHCRD · 5 time-varying parameters · "
-    "Germany COVID-19 · March 2020 – October 2024"
+st.markdown(
+    "**Real-time epidemic surveillance powered by a Bootstrap Particle Filter.** "
+    "Track transmission dynamics, estimate R_eff, and compare countries — "
+    "for any respiratory disease (COVID-19, influenza, ILI) using live ECDC data "
+    "or your own CSV.  \n"
+    "The **Live data**, **Country comparison**, and **Model explorer** tabs work with any dataset. "
+    "The first 10 tabs show a fully validated run on "
+    "Germany COVID-19 (SVEAIHCRD · 5 time-varying parameters · March 2020 – October 2024)."
 )
 
 c1,c2,c3,c4,c5 = st.columns(5)
@@ -790,7 +808,7 @@ with tab_filt:
     fig1.update_xaxes(showgrid=False,
                       range=[df_eval["date"].min(), df_eval["date"].max()])
     fig1.update_yaxes(showgrid=True, gridcolor="#EEEEEE")
-    st.plotly_chart(fig1, use_container_width=True)
+    st.plotly_chart(fig1, width="stretch")
 
     st.info(
         "**Note on the 80% band in the gray region (post Apr 2023).**  \n"
@@ -904,7 +922,7 @@ with tab_comp:
         cfig.update_xaxes(showgrid=False,
                           range=[df["date"].min(), df["date"].max()])
         cfig.update_yaxes(showgrid=True, gridcolor="#EEEEEE")
-        st.plotly_chart(cfig, use_container_width=True)
+        st.plotly_chart(cfig, width="stretch")
 
 # ---------------------------------------------------------------------------
 # TAB 3 — Dynamic parameters (5 parameters: 3×2 layout, cell [3,2] empty)
@@ -977,7 +995,7 @@ with tab_dyn:
     pfig.update_xaxes(showgrid=False,
                       range=[df["date"].min(), df["date"].max()])
     pfig.update_yaxes(showgrid=True, gridcolor="#EEEEEE")
-    st.plotly_chart(pfig, use_container_width=True)
+    st.plotly_chart(pfig, width="stretch")
 
     missing = [c for c, *_ in par_cfg if c not in df.columns]
     if missing:
@@ -997,7 +1015,7 @@ with tab_met:
                          "RMSE":_fmt(m["rmse"]), "MAE":_fmt(m["mae"]),
                          "80% coverage":f"{m['coverage_80pct']:.1%}", "n days":m["n"]})
 
-    st.dataframe(pd.DataFrame(rows_tbl), hide_index=True, use_container_width=True)
+    st.dataframe(pd.DataFrame(rows_tbl), hide_index=True, width="stretch")
     st.markdown(
         "**Under-coverage for deaths/hosp** is a known artefact of aggressive resampling: "
         "particles homogenise after each resample event, narrowing the 80% CI beyond "
@@ -1013,7 +1031,7 @@ with tab_met:
             {"Channel":"ICU",    "phi":12, "alpha":0.60},
             {"Channel":"Deaths", "phi":10, "alpha":0.40},
             {"Channel":"Hosp",   "phi":15, "alpha":0.10},
-        ]), hide_index=True, use_container_width=True)
+        ]), hide_index=True, width="stretch")
     with cb:
         st.subheader("ESS summary")
         n_res = int((df_full["ess"] < 900).sum())
@@ -1022,7 +1040,7 @@ with tab_met:
             {"Stat":"Min ESS",  "Value":f"{df_full['ess'].min():.0f}"},
             {"Stat":"Resample events","Value":f"{n_res} / {len(df_full)}"},
             {"Stat":"Resample rate","Value":f"{100*n_res/len(df_full):.1f}%"},
-        ]), hide_index=True, use_container_width=True)
+        ]), hide_index=True, width="stretch")
 
 # ---------------------------------------------------------------------------
 # TAB 5 — Fixed parameters table
@@ -1051,7 +1069,7 @@ with tab_prm:
         {"Symbol":"omega_R",     "Value":"1/365",              "Unit":"day⁻¹",    "Description":"R→S waning rate (12-month immunity)"},
         {"Symbol":"vacc. eff.",  "Value":"0.75",               "Unit":"—",         "Description":"Vaccine efficacy against infection"},
         {"Symbol":"nu_eff(t)",   "Value":"TIME-VARYING / DATA","Unit":"day⁻¹",    "Description":"nu_eff(t) = d_vacc_first(t)/N + omega_V * vaccinated_pct(t).  First term: new first doses.  Second term: booster compensation — replaces waned individuals so V tracks 'all who received >= 1 dose'.  Applied uniformly to S, E, A, R.  Hard-zeroed before 2020-12-27."},
-    ]), hide_index=True, use_container_width=True)
+    ]), hide_index=True, width="stretch")
 
     st.markdown("#### Observation model")
     st.dataframe(pd.DataFrame([
@@ -1068,7 +1086,7 @@ with tab_prm:
         {"Symbol":"alpha_ICU",    "Value":"0.60", "Unit":"—",         "Description":"Tempering weight — ICU"},
         {"Symbol":"alpha_deaths", "Value":"0.40", "Unit":"—",         "Description":"Tempering weight — deaths"},
         {"Symbol":"alpha_hosp",   "Value":"0.10", "Unit":"—",         "Description":"Tempering weight — hospital proxy"},
-    ]), hide_index=True, use_container_width=True)
+    ]), hide_index=True, width="stretch")
 
     st.markdown("#### Dynamic parameter priors (initial particle draw, March 10 2020)")
     st.dataframe(pd.DataFrame([
@@ -1085,7 +1103,7 @@ with tab_prm:
          "RW noise sigma":"0.025","Log bounds":"[ln 0.01, ln 0.99]",
          "Note":"Testing rate ~20% in early Mar 2020 (limited PCR capacity); "
                 "filter learns true trajectory from case observations"},
-    ]), hide_index=True, use_container_width=True)
+    ]), hide_index=True, width="stretch")
 
     st.markdown("#### Initial compartment prior means (March 10, 2020)")
     st.dataframe(pd.DataFrame([
@@ -1103,7 +1121,7 @@ with tab_prm:
         {"Compartment":"C","Prior mean":"150",   "Log scatter (sigma)":"0.60","Derivation":"ICU"},
         {"Compartment":"R","Prior mean":"8,000", "Log scatter (sigma)":"0.40","Derivation":""},
         {"Compartment":"D","Prior mean":"30",    "Log scatter (sigma)":"0.40","Derivation":"~30 deaths in Germany by 10 Mar 2020"},
-    ]), hide_index=True, use_container_width=True)
+    ]), hide_index=True, width="stretch")
 
     st.markdown("#### Filter settings")
     st.dataframe(pd.DataFrame([
@@ -1114,7 +1132,7 @@ with tab_prm:
         {"Setting":"Burn-in (excluded)",  "Value":"30 days"},
         {"Setting":"State noise sigma",   "Value":"0.010 (multiplicative, all compartments)"},
         {"Setting":"Quantile draws",      "Value":"2,000 weighted samples per step"},
-    ]), hide_index=True, use_container_width=True)
+    ]), hide_index=True, width="stretch")
 
     st.info(
         "**Why D exceeds RKI count (~168k):** "
@@ -1165,7 +1183,7 @@ with tab_mod:
             ("R", "Recovered — temporary immunity"),
             ("D", "Dead — cumulative"),
         ], columns=["Compartment", "Meaning"]),
-        hide_index=True, use_container_width=True,
+        hide_index=True, width="stretch",
     )
 
     st.markdown("#### Ordinary differential equations")
@@ -1283,7 +1301,7 @@ with tab_mod:
         "\n"
         r"| Smoothness | Penalises abrupt policy changes | $w_{\Delta u}=2,\;w_{\Delta v}=0.5$ |"
         "\n"
-        "| Capacity penalty | Soft constraint: $10^5 \cdot \sum \max(0, H_t - H_{\max})^2$ | Discourages exceeding hospital capacity |"
+        r"| Capacity penalty | Soft constraint: $10^5 \cdot \sum \max(0, H_t - H_{\max})^2$ | Discourages exceeding hospital capacity |"
     )
 
     st.markdown("#### How it is solved")
@@ -1433,7 +1451,7 @@ with tab_mod:
              "Spatial heterogeneity (federal states, urban/rural) not captured",
              "Multi-patch extension already scaffolded in src/episurveil/models/multipatch.py"),
         ], columns=["Limitation", "Effect", "Potential fix"]),
-        hide_index=True, use_container_width=True,
+        hide_index=True, width="stretch",
     )
 
 # TAB 7 — ESS
@@ -1473,7 +1491,7 @@ with tab_ess:
     ess_fig.update_xaxes(showgrid=False,
                          range=[df["date"].min(), df["date"].max()])
     ess_fig.update_yaxes(showgrid=True, gridcolor="#EEEEEE")
-    st.plotly_chart(ess_fig, use_container_width=True)
+    st.plotly_chart(ess_fig, width="stretch")
 
     n_res = int((df["ess"] < 900).sum())
     st.info(
@@ -1736,7 +1754,7 @@ with tab_ctrl:
                 margin=dict(t=50, b=70, l=55, r=20),
             )
             fig_u.update_xaxes(showgrid=False, range=[dates_ctrl[0], dates_ctrl[-1]])
-            st.plotly_chart(fig_u, use_container_width=True)
+            st.plotly_chart(fig_u, width="stretch")
 
             st.caption(
                 "Blue = NPI control u*(t).  Teal = testing intensity v*(t).  "
@@ -1787,7 +1805,7 @@ with tab_ctrl:
             )
             fig_hcd.update_xaxes(showgrid=False, range=[dates_ctrl[0], dates_ctrl[-1]])
             fig_hcd.update_yaxes(showgrid=True, gridcolor="#EEEEEE")
-            st.plotly_chart(fig_hcd, use_container_width=True)
+            st.plotly_chart(fig_hcd, width="stretch")
 
             # ---- Interpretation note ----
             st.markdown("---")
@@ -1891,7 +1909,7 @@ with tab_ctrl:
             )
             pfig.update_xaxes(showgrid=True, gridcolor="#EEEEEE")
             pfig.update_yaxes(showgrid=True, gridcolor="#EEEEEE")
-            st.plotly_chart(pfig, use_container_width=True)
+            st.plotly_chart(pfig, width="stretch")
 
             st.dataframe(pd.DataFrame([{
                 "w_u":                f"{p['w_u']:.1f}",
@@ -1903,7 +1921,7 @@ with tab_ctrl:
                 "Deaths averted":     f"{p['deaths_averted']:,}",
                 "Hosp-days averted":  f"{p['hosp_days_averted']:,}",
                 "ICU-days averted":   f"{p['icu_days_averted']:,}",
-            } for p in pts]), hide_index=True, use_container_width=True)
+            } for p in pts]), hide_index=True, width="stretch")
 
         if "ctrl_result" not in st.session_state and "pareto_pts" not in st.session_state:
             st.info("Configure the parameters on the left and click **Run optimisation** to start.")
@@ -2063,7 +2081,7 @@ with tab_ctrl:
                 margin=dict(t=50, b=70, l=55, r=20),
             )
             fig_mpc.update_xaxes(showgrid=False, range=[dates_mpc[0], dates_mpc[-1]])
-            st.plotly_chart(fig_mpc, use_container_width=True)
+            st.plotly_chart(fig_mpc, width="stretch")
 
             st.caption(
                 "The controller re-solves every day using the BPF posterior mean — so when "
@@ -2109,7 +2127,7 @@ with tab_ctrl:
             )
             fig_mpc2.update_xaxes(showgrid=False, range=[dates_mpc[0], dates_mpc[-1]])
             fig_mpc2.update_yaxes(showgrid=True, gridcolor="#EEEEEE")
-            st.plotly_chart(fig_mpc2, use_container_width=True)
+            st.plotly_chart(fig_mpc2, width="stretch")
 
             st.caption(
                 "Counterfactual: what would the epidemic have looked like under the MPC adaptive "
@@ -2192,7 +2210,7 @@ with tab_ctrl:
                                        showlegend=False,
                                        margin=dict(t=40, b=20, l=40, r=20))
                 fig_conv.update_xaxes(showgrid=False)
-                st.plotly_chart(fig_conv, use_container_width=True)
+                st.plotly_chart(fig_conv, width="stretch")
                 st.caption(
                     f"Total steps: {r.T_sim}.  "
                     f"Converged: {int(r.converged.sum())} ({100*r.converged.mean():.0f}%).  "
@@ -2397,7 +2415,7 @@ with tab_cmp:
                     legend=dict(orientation="h", yanchor="bottom", y=1.02, x=0),
                     margin=dict(t=60, b=30, l=50, r=20),
                 )
-                st.plotly_chart(fig_cmp, use_container_width=True)
+                st.plotly_chart(fig_cmp, width="stretch")
 
                 st.caption(
                     "**SEIR** (blue): estimated from case counts alone — β_t and S_t determine R_eff. "
@@ -2500,7 +2518,7 @@ full 1 673-day panel while SEIR/SEIRHD inflate beyond 1.
                             hovermode="x unified",
                             legend=dict(orientation="h", yanchor="bottom", y=1.02, x=0),
                             margin=dict(t=60, b=20, l=50, r=20))
-                        st.plotly_chart(fig_b, use_container_width=True)
+                        st.plotly_chart(fig_b, width="stretch")
 
                 # ── Fixed parameters (transparency) ───────────────────────
                 with st.expander("Fixed parameters used in this comparison"):
@@ -2551,7 +2569,7 @@ full 1 673-day panel while SEIR/SEIRHD inflate beyond 1.
                     if param_table:
                         st.dataframe(
                             pd.DataFrame(param_table).set_index("Model"),
-                            use_container_width=True,
+                            width="stretch",
                         )
                     st.caption(
                         "Time-varying parameters (β_t, τ_I_t, δ_H_t, …) are estimated "
@@ -2616,7 +2634,7 @@ full 1 673-day panel while SEIR/SEIRHD inflate beyond 1.
                             legend=dict(orientation="h", y=-0.28, font=dict(size=10)),
                             margin=dict(t=35, b=45, l=45, r=10),
                         )
-                        col_fit.plotly_chart(fig_fit, use_container_width=True)
+                        col_fit.plotly_chart(fig_fit, width="stretch")
 
                 # ── Exposed compartment E_t comparison ────────────────────
                 _e_traces = {}
@@ -2655,7 +2673,7 @@ full 1 673-day panel while SEIR/SEIRHD inflate beyond 1.
                         legend=dict(orientation="h", yanchor="bottom", y=1.02, x=0),
                         margin=dict(t=60, b=30, l=60, r=20),
                     )
-                    st.plotly_chart(fig_exp, use_container_width=True)
+                    st.plotly_chart(fig_exp, width="stretch")
                     st.caption(
                         "E_t represents the latent (incubating) population estimated by each model. "
                         "Differences reflect how each model allocates unobserved burden "
@@ -3539,7 +3557,7 @@ Lauer et al. (2020) Ann Intern Med; WHO Ebola response team (2014) NEJM.*
             if met_rows:
                 st.markdown("**Fit metrics**")
                 st.dataframe(pd.DataFrame(met_rows), hide_index=True,
-                             use_container_width=True)
+                             width="stretch")
 
             # ── Epidemic alert status ─────────────────────────────────────
             if "P_growing" in res_exp.columns:
@@ -3642,7 +3660,7 @@ Lauer et al. (2020) Ann Intern Med; WHO Ebola response team (2014) NEJM.*
                     legend=dict(orientation="h", y=-0.30, font=dict(size=11)),
                     margin=dict(t=40, b=55, l=55, r=20),
                 )
-                st.plotly_chart(_fig_pg, use_container_width=True)
+                st.plotly_chart(_fig_pg, width="stretch")
 
             # ── Generate Report ───────────────────────────────────────────
             st.markdown("---")
@@ -3882,7 +3900,7 @@ Watch for these warning signs:
                         legend=dict(orientation="h", y=-0.28, font=dict(size=11)),
                         margin=dict(t=35, b=50, l=45, r=10),
                     )
-                    col_fit.plotly_chart(fig_fit, use_container_width=True)
+                    col_fit.plotly_chart(fig_fit, width="stretch")
 
             # ── R_eff(t) ──────────────────────────────────────────────────
             fig_reff = go.Figure()
@@ -3941,7 +3959,7 @@ Watch for these warning signs:
                 hovermode="x unified",
                 margin=dict(t=50, b=20, l=50, r=20),
             )
-            st.plotly_chart(fig_reff, use_container_width=True)
+            st.plotly_chart(fig_reff, width="stretch")
 
             # ── Time-varying parameters (all, in a grid) ──────────────────
             param_cols_avail = [p for p in _param_names
@@ -3982,7 +4000,7 @@ Watch for these warning signs:
                         xaxis_title="Date", yaxis_title=pn,
                         margin=dict(t=30, b=20, l=40, r=10),
                         showlegend=False)
-                    col_p.plotly_chart(fig_p, use_container_width=True)
+                    col_p.plotly_chart(fig_p, width="stretch")
 
             # ── ESS over time ─────────────────────────────────────────────
             fig_ess_exp = go.Figure()
@@ -4005,7 +4023,7 @@ Watch for these warning signs:
                 xaxis_title="Date", yaxis_title="ESS",
                 margin=dict(t=40, b=20, l=50, r=20),
             )
-            st.plotly_chart(fig_ess_exp, use_container_width=True)
+            st.plotly_chart(fig_ess_exp, width="stretch")
 
             # ── Compartment trajectories (collapsible) ────────────────────
             with st.expander("Compartment trajectories"):
@@ -4037,7 +4055,7 @@ Watch for these warning signs:
                                      title=sn, showlegend=False,
                                      margin=dict(t=30, b=10, l=30, r=10),
                                      xaxis=dict(showticklabels=False))
-                    col.plotly_chart(fg, use_container_width=True)
+                    col.plotly_chart(fg, width="stretch")
 
             # ── Download ──────────────────────────────────────────────────
             _dl_c1, _dl_c2, _dl_c3 = st.columns(3)
@@ -4221,7 +4239,7 @@ with tab_live:
                 legend=dict(orientation="h", y=-0.30, font=dict(size=11)),
                 margin=dict(t=45, b=55, l=55, r=20),
             )
-            st.plotly_chart(_fig_live, use_container_width=True)
+            st.plotly_chart(_fig_live, width="stretch")
 
             # ── Data preview ──────────────────────────────────────────────
             with st.expander("Raw data preview (last 20 rows)", expanded=False):
@@ -4229,7 +4247,7 @@ with tab_live:
                     _live_data.tail(20).style.format(
                         {c: "{:,.1f}" for c in _live_chs}, na_rep="—"
                     ),
-                    use_container_width=True,
+                    width="stretch",
                 )
 
             st.download_button(
@@ -4591,7 +4609,7 @@ with tab_live:
                         legend=dict(orientation="h", y=-0.30, font=dict(size=11)),
                         margin=dict(t=45, b=55, l=55, r=20),
                     )
-                    st.plotly_chart(_fig_lbpf, use_container_width=True)
+                    st.plotly_chart(_fig_lbpf, width="stretch")
 
                 # E and I compartment trajectories with 80% CI
                 _EI_SPECS = [
@@ -4636,7 +4654,7 @@ with tab_live:
                                             font=dict(size=11)),
                                 margin=dict(t=45, b=60, l=65, r=20),
                             )
-                            st.plotly_chart(_fig_ei, use_container_width=True)
+                            st.plotly_chart(_fig_ei, width="stretch")
 
                 # R_eff + P_growing
                 _fig_lr = _go2.Figure()
@@ -4654,7 +4672,7 @@ with tab_live:
                     hovermode="x unified",
                     margin=dict(t=45, b=55, l=55, r=20),
                 )
-                st.plotly_chart(_fig_lr, use_container_width=True)
+                st.plotly_chart(_fig_lr, width="stretch")
 
                 _pg_now = float(_lbpf_res["P_growing"].iloc[-1])
                 _color  = ("red" if _pg_now >= 0.80 else
@@ -4716,7 +4734,7 @@ with tab_live:
                             legend=dict(orientation="h", y=-0.30, font=dict(size=11)),
                             margin=dict(t=45, b=55, l=55, r=20),
                         )
-                        st.plotly_chart(_fig_lfc, use_container_width=True)
+                        st.plotly_chart(_fig_lfc, width="stretch")
 
 # ===========================================================================
 # TAB 12 — Country comparison
@@ -4928,7 +4946,7 @@ with tab_geo:
             })
         st.dataframe(
             pd.DataFrame(_tbl_rows),
-            use_container_width=True,
+            width="stretch",
             hide_index=True,
         )
         st.markdown("---")
@@ -4968,7 +4986,7 @@ with tab_geo:
             legend=dict(orientation="h", y=-0.22, font=dict(size=11)),
             margin=dict(t=50, b=70, l=55, r=20),
         )
-        st.plotly_chart(_fig_reff, use_container_width=True)
+        st.plotly_chart(_fig_reff, width="stretch")
 
         # ── 3. P_growing comparison chart ────────────────────────────────────
         st.markdown("### P(R_eff > 1) — epidemic growth probability")
@@ -4993,7 +5011,7 @@ with tab_geo:
             legend=dict(orientation="h", y=-0.25, font=dict(size=11)),
             margin=dict(t=50, b=70, l=55, r=20),
         )
-        st.plotly_chart(_fig_pg, use_container_width=True)
+        st.plotly_chart(_fig_pg, width="stretch")
 
         # ── 4. Cases fit per country (collapsible) ───────────────────────────
         with st.expander("Observed vs predicted — per country", expanded=False):
@@ -5039,7 +5057,7 @@ with tab_geo:
                                     font=dict(size=10)),
                         margin=dict(t=40, b=60, l=55, r=20),
                     )
-                    st.plotly_chart(_fig_fit, use_container_width=True)
+                    st.plotly_chart(_fig_fit, width="stretch")
 
         # ── 5. CSV export ─────────────────────────────────────────────────────
         st.markdown("---")
@@ -5160,7 +5178,7 @@ with tab_log:
             legend=dict(orientation="h", y=-0.22, font=dict(size=11)),
             margin=dict(t=30, b=70, l=55, r=20),
         )
-        st.plotly_chart(_fig_log, use_container_width=True)
+        st.plotly_chart(_fig_log, width="stretch")
 
         # ── P_growing longitudinal chart ──────────────────────────────────────
         st.markdown("### P(R_eff > 1) over time")
@@ -5186,7 +5204,7 @@ with tab_log:
             legend=dict(orientation="h", y=-0.25, font=dict(size=11)),
             margin=dict(t=30, b=70, l=55, r=20),
         )
-        st.plotly_chart(_fig_lpg, use_container_width=True)
+        st.plotly_chart(_fig_lpg, width="stretch")
 
         # ── Status table ──────────────────────────────────────────────────────
         st.markdown("### Log entries")
@@ -5200,7 +5218,7 @@ with tab_log:
         st.dataframe(
             _disp[["timestamp", "source", "country", "last_obs_date",
                    "R_eff", "P(growing)", "status", "model"]],
-            use_container_width=True,
+            width="stretch",
             hide_index=True,
         )
 
@@ -5387,7 +5405,12 @@ horizon (e.g. $-30\%$ transmission → `multiplier = 0.70`) to simulate an NPI o
 contact reduction and compare projected incidence against the baseline.
 """)
 
-    st.info(
-        "For questions, issues, or feature requests, open an issue on the project repository.",
-        icon="ℹ️",
+    st.markdown("---")
+    st.markdown(
+        "**Author:** Florent Ouabo Kamkumo, PhD  \n"
+        "For research collaborations, questions, or feedback:  \n"
+        "[![LinkedIn](https://img.shields.io/badge/LinkedIn-Florent%20Ouabo%20Kamkumo-0A66C2?logo=linkedin&logoColor=white&style=flat-square)]"
+        "(https://www.linkedin.com/in/florent-ouabo-kamkumo-phd-ba39472b8/) &nbsp;"
+        "[![GitHub Issues](https://img.shields.io/badge/GitHub-Report%20an%20issue-181717?logo=github&style=flat-square)]"
+        "(https://github.com/Ouabo/episurveil/issues/new)"
     )

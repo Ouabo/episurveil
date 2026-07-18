@@ -237,9 +237,6 @@ episurveil/
 │       └── delays.py             # Reporting-delay gamma convolution
 ├── data/processed/
 │   └── sveaihcrd_filter_output.csv   # Pre-computed 1 673-day Germany run
-├── paper/
-│   ├── main.tex                  # IMRAD manuscript (in review)
-│   └── main.pdf                  # Compiled (22 pages)
 ├── tests/                        # 32-test suite
 ├── .streamlit/config.toml        # Server config (upload limit, XSRF, no telemetry)
 └── requirements.txt              # Pinned dependencies
@@ -295,7 +292,7 @@ If you use EpiSurveil in your work, please cite:
 }
 ```
 
-Paper preprint: `paper/main.pdf` (submitted).
+Paper preprint available on request — contact via LinkedIn.
 
 ---
 

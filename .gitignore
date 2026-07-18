@@ -1,6 +1,9 @@
 # Runtime files — never commit
 data/alert_log.csv
 
+# Paper — shared on request only
+paper/
+
 # Python
 __pycache__/
 *.py[cod]

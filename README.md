@@ -4,7 +4,7 @@
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.57-FF4B4B?logo=streamlit)](https://streamlit.io)
 [![Tests](https://img.shields.io/badge/tests-32%20passing-brightgreen)](tests/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Live demo](https://img.shields.io/badge/demo-live-blue?logo=streamlit)](https://florentkamkumo-episurveil.streamlit.app)
+[![Live demo](https://img.shields.io/badge/demo-live-blue?logo=streamlit)](https://Ouabo-episurveil.streamlit.app)
 
 > **Modular Python framework for epidemic surveillance, real-time Bayesian parameter estimation, and particle-filter-guided optimal intervention planning.**
 
@@ -28,7 +28,7 @@ Validated on Germany COVID-19 (10 March 2020 – 7 October 2024, 1 673 days) wit
 ## Live demo
 
 ```
-https://florentkamkumo-episurveil.streamlit.app
+https://Ouabo-episurveil.streamlit.app
 ```
 
 Upload your own CSV (date + cases columns minimum) and get R_eff(t), β(t), compartment trajectories, fit metrics, and an auto-generated epidemic analysis report — no installation needed.
@@ -38,7 +38,7 @@ Upload your own CSV (date + cases columns minimum) and get R_eff(t), β(t), comp
 ## Quick start
 
 ```bash
-git clone https://github.com/florentkamkumo/episurveil.git
+git clone https://github.com/Ouabo/episurveil.git
 cd episurveil
 pip install -e .
 pytest tests/ -q        # 32 tests, ~6 s
@@ -251,7 +251,7 @@ episurveil/
 
 ```bash
 # From source (recommended — editable install)
-git clone https://github.com/florentkamkumo/episurveil.git
+git clone https://github.com/Ouabo/episurveil.git
 cd episurveil
 pip install -e .
 
@@ -267,7 +267,7 @@ Requirements: Python ≥ 3.10, numpy 2.2, scipy 1.15, pandas 2.3, streamlit 1.57
 
 Found a bug, got unexpected results, or have a feature request?
 
-- [Open a GitHub Issue](https://github.com/florentkamkumo/episurveil/issues/new?labels=feedback&title=[Feedback]) — pre-filled template
+- [Open a GitHub Issue](https://github.com/Ouabo/episurveil/issues/new?labels=feedback&title=[Feedback]) — pre-filled template
 - Or use the **💬 Feedback** strip at the bottom of the Model explorer tab in the dashboard
 
 Feedback on the following is especially welcome:
@@ -289,7 +289,7 @@ If you use EpiSurveil in your work, please cite:
              Sequential Bayesian Estimation, and Particle-Filter-Guided
              Optimal Intervention Planning},
   year    = {2026},
-  url     = {https://github.com/florentkamkumo/episurveil},
+  url     = {https://github.com/Ouabo/episurveil},
 }
 ```
 

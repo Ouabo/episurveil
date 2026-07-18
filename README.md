@@ -4,7 +4,7 @@
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.57-FF4B4B?logo=streamlit)](https://streamlit.io)
 [![Tests](https://img.shields.io/badge/tests-32%20passing-brightgreen)](tests/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Live demo](https://img.shields.io/badge/demo-live-blue?logo=streamlit)](https://Ouabo-episurveil.streamlit.app)
+[![Live demo](https://img.shields.io/badge/demo-live-blue?logo=streamlit)](https://episurveil.streamlit.app)
 
 > **Modular Python framework for epidemic surveillance, real-time Bayesian parameter estimation, and particle-filter-guided optimal intervention planning.**
 
@@ -28,7 +28,7 @@ Validated on Germany COVID-19 (10 March 2020 – 7 October 2024, 1 673 days) wit
 ## Live demo
 
 ```
-https://Ouabo-episurveil.streamlit.app
+https://episurveil.streamlit.app
 ```
 
 Upload your own CSV (date + cases columns minimum) and get R_eff(t), β(t), compartment trajectories, fit metrics, and an auto-generated epidemic analysis report — no installation needed.

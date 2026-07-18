@@ -1,0 +1,3 @@
+# RKI hospitalization audit
+
+The downloaded `COVID-SARI-Hospitalisierungsinzidenz.tsv` contains weekly SARI incidence by age group (for example `2020-W10`, `60-79`, value `0.2`) rather than daily hospital occupancy. The canonical harmonizer labels this signal `hospitalization_incidence` and marks it as a weekly sentinel series. It must therefore not be compared directly with the model's hospitalized stock compartment. The correct mapping is an incidence observation model (with weekly aggregation and reporting delay), or a separately validated admissions-to-occupancy conversion using an independently sourced admissions series.

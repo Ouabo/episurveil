@@ -1,0 +1,34 @@
+{
+  "train_fraction": 0.7,
+  "metrics": {
+    "reported_cases": {
+      "scale": 0.44135851429943146,
+      "test_rmse": 37126.00121187331,
+      "test_mae": 27691.254071949264,
+      "test_mean_observed": 44751.76469821972,
+      "test_mean_predicted": 23274.637281942512
+    },
+    "deaths": {
+      "scale": 0.6872487427590478,
+      "test_rmse": 61.29941716937843,
+      "test_mae": 53.577473074713346,
+      "test_mean_observed": 98.93863077145751,
+      "test_mean_predicted": 137.84564849174185
+    },
+    "icu_occupancy": {
+      "scale": 0.6638068783251748,
+      "test_rmse": 729.7038196077225,
+      "test_mae": 627.4731035017027,
+      "test_mean_observed": 1048.598784194529,
+      "test_mean_predicted": 1668.0674647954045
+    },
+    "hospitalization_proxy": {
+      "scale": 0.5651569476795046,
+      "test_rmse": 7820.059172273799,
+      "test_mae": 6379.945386699352,
+      "test_mean_observed": 11582.566838285467,
+      "test_mean_predicted": 5218.696686575781
+    }
+  },
+  "method": "chronological train/test moment calibration"
+}

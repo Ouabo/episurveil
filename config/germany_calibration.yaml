@@ -1,0 +1,19 @@
+source_project: Bayesian_SVEIAHR_Sequential_Project
+reporting_probability: 0.709
+contact_scaling_alpha: 0.75
+beta_A_prior_mean: null
+hospitalization_rate_prior_mean: 0.0021
+hospital_death_rate_prior_mean: 0.019
+icu_fraction_prior_mean: 0.23
+case_dispersion: 80
+icu_dispersion: 12
+death_dispersion: 10
+hosp_dispersion: 15       # hospital proxy; between ICU (12) and cases (80)
+state_process_noise_sd: 0.020
+parameter_random_walk_sd:
+  beta: 0.040
+  hospitalization: 0.018
+  death: 0.018
+  icu_fraction: 0.018
+hospital_length_of_stay_days: 8
+notes: Values are initialization/calibration conventions from the existing Germany SVEIAHR project; they require re-estimation for the SVEAIHCRD platform.

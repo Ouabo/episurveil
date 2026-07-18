@@ -1,0 +1,7 @@
+{
+  "case_reporting_correction": 0.5413392941643509,
+  "death_scale": 0.6397917645592803,
+  "icu_scale": 0.6034853099616305,
+  "hospitalization_scale": 0.7337613802577283,
+  "method": "observed/predicted mean ratios; diagnostic moment calibration, not posterior inference"
+}

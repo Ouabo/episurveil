@@ -1,0 +1,10 @@
+{
+  "name": "owid_covid",
+  "url": "https://covid.ourworldindata.org/data/owid-covid-data.csv",
+  "authority": "Our World in Data",
+  "disease": "COVID-19",
+  "licence": "OWID data catalogue terms",
+  "retrieved_at": "2026-07-16T14:27:03.570332+00:00",
+  "sha256": "",
+  "status": "failed: <urlopen error [Errno 11001] getaddrinfo failed>"
+}

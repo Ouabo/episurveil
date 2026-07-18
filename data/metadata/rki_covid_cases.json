@@ -1,0 +1,10 @@
+{
+  "name": "rki_covid_cases",
+  "url": "https://raw.githubusercontent.com/robert-koch-institut/COVID-19-Todesfaelle_in_Deutschland/main/COVID-19-Todesfaelle_Deutschland.csv",
+  "authority": "Robert Koch Institute",
+  "disease": "COVID-19",
+  "licence": "Open government data; verify current terms before redistribution",
+  "retrieved_at": "2026-07-16T14:27:03.559105+00:00",
+  "sha256": "39ef596ec6af64f0c1401a48b84bdc5119526e90057b826148faed4e5fb484ca",
+  "status": "downloaded"
+}

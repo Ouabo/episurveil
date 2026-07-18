@@ -1,0 +1,25 @@
+{
+  "initial_state": [
+    82108586.92321831,
+    0.0,
+    357346.1923582403,
+    0.0,
+    523892.85188180243,
+    8313.664903917772,
+    1860.3676377302747,
+    0.0,
+    0.0
+  ],
+  "reporting_probability": 0.709,
+  "tau_i": 0.0021,
+  "delta_h": 0.019,
+  "rho_icu": 0.2237722664108805,
+  "hospital_length_of_stay_days": 8.0,
+  "panel_means": {
+    "cases": 34907.16427485228,
+    "hospitalization_proxy": 8313.664903917772,
+    "icu": 1860.3676377302747,
+    "deaths": 157.45333029197084
+  },
+  "notes": "Initialization adapter; not a posterior estimate."
+}

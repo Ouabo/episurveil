@@ -1,0 +1,25 @@
+sources:
+  rki_covid_cases:
+    disease: COVID-19
+    authority: Robert Koch Institute
+    url: https://raw.githubusercontent.com/robert-koch-institut/COVID-19-Todesfaelle_in_Deutschland/main/COVID-19-Todesfaelle_Deutschland.csv
+    format: csv
+    licence: Open government data; verify current terms before redistribution
+  owid_covid:
+    disease: COVID-19
+    authority: Our World in Data
+    url: https://covid.ourworldindata.org/data/owid-covid-data.csv
+    format: csv
+    licence: OWID data catalogue terms
+  rki_covid_infections:
+    disease: COVID-19
+    authority: Robert Koch Institute
+    url: https://raw.githubusercontent.com/robert-koch-institut/SARS-CoV-2-Infektionen_in_Deutschland/main/Aktuell_Deutschland_SarsCov2_Infektionen.csv
+    format: csv
+    licence: Open government data; verify current terms before redistribution
+  rki_covid_hospitalizations:
+    disease: COVID-19
+    authority: Robert Koch Institute
+    url: https://raw.githubusercontent.com/robert-koch-institut/COVID-SARI-Hospitalisierungsinzidenz/main/COVID-SARI-Hospitalisierungsinzidenz.tsv
+    format: tsv
+    licence: Open government data; verify current terms before redistribution

@@ -1,0 +1,15 @@
+{
+  "success": true,
+  "objective": 97361.0705558402,
+  "parameters": {
+    "beta_start": 0.7286174610138554,
+    "beta_end": 0.8131428406246363,
+    "q": 0.28881929205615114,
+    "tau_h": 0.023781872847736068,
+    "hosp_obs_scale": 0.02588320347936888,
+    "H0": 382.6304305179217,
+    "C0": 186.17552145052994
+  },
+  "train_fraction": 0.7,
+  "likelihood": "joint negative-binomial cases/deaths/DIVI ICU/RKI weekly incidence with sentinel observation scale"
+}

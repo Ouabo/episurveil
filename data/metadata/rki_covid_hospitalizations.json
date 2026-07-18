@@ -1,0 +1,10 @@
+{
+  "name": "rki_covid_hospitalizations",
+  "url": "https://raw.githubusercontent.com/robert-koch-institut/COVID-SARI-Hospitalisierungsinzidenz/main/COVID-SARI-Hospitalisierungsinzidenz.tsv",
+  "authority": "Robert Koch Institute",
+  "disease": "COVID-19",
+  "licence": "Open government data; verify current terms before redistribution",
+  "retrieved_at": "2026-07-16T14:27:03.968590+00:00",
+  "sha256": "b9e196df4c5e1a0ab6fe7e7d2c0436aaf21baa7dc7d9ada476efe43ef8f24979",
+  "status": "downloaded"
+}

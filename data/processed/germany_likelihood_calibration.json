@@ -1,0 +1,18 @@
+{
+  "success": true,
+  "objective": 175535.53988262572,
+  "train_fraction": 0.7,
+  "scales": {
+    "reported_cases": 1.8181952572669653,
+    "deaths": 7.38905609893065,
+    "icu_occupancy": 7.38905609893065,
+    "hospitalization_proxy": 6.21263942305973
+  },
+  "dispersion": {
+    "reported_cases": 80.0,
+    "deaths": 10.0,
+    "icu_occupancy": 12.0,
+    "hospitalization_proxy": 10.0
+  },
+  "method": "negative-binomial maximum likelihood on training split"
+}

@@ -1,0 +1,14 @@
+[server]
+maxUploadSize = 10          # MB — large enough for any daily CSV, blocks abuse
+headless = true             # required for deployment (no browser auto-open)
+enableCORS = false
+enableXsrfProtection = true
+
+[browser]
+gatherUsageStats = false    # no telemetry sent to Streamlit
+
+[runner]
+fastReruns = true
+
+[theme]
+base = "light"

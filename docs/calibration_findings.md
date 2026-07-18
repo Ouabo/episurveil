@@ -1,0 +1,3 @@
+# Calibration findings
+
+Joint negative-binomial calibration with delayed cases, admissions-to-occupancy mapping, linear time-varying transmission, and estimated ICU-transition severity improves the objective relative to the fixed-parameter model. Nevertheless, the optimizer repeatedly places the initial hospitalized state at its lower bound. This is treated as a diagnostic, not as a scientific estimate. Before production inference, the RKI hospitalization series must be audited for its exact start date, admissions/occupancy definition, and reporting backfill; the model should then be initialized from a pre-observation latent trajectory with uncertainty rather than a point estimate.
